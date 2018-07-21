@@ -1,0 +1,30 @@
+{
+  "name": "helloworld",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "color": "^3.0.0",
+    "express": "4.16.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-ga": "2.5.3",
+    "react-motion": "0.5.2",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "sass --watch src/components:src/components | react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "guppy": {
+    "id": "helloworld",
+    "name": "helloworld",
+    "type": "create-react-app",
+    "color": "#FF6D00",
+    "icon": null,
+    "createdAt": 1531613292462
+  }
+}
