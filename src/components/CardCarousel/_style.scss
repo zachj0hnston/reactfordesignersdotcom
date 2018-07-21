@@ -1,0 +1,38 @@
+
+$cardWidth: 130%;
+
+.card-carousel {
+  position: relative;
+  width: $cardWidth;
+  margin: $unit-l 0;
+  margin-left: (($cardWidth - 100%) / -2);
+}
+
+.card-carousel__inner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 -($unit);
+
+  & > div {
+    margin: 0 $unit;
+  }
+}
+
+// Mobile hacks
+@media all and (max-width: 600px) {
+  .card-carousel {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .card-carousel__inner {
+    display: block;
+    margin: 0;
+
+    & > div {
+      margin: 0;
+      margin-bottom: $unit-m;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "reactfordesignersdotcom",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "color": "^3.0.0",
+    "express": "4.16.3",
+    "gh-pages": "1.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-ga": "2.5.3",
+    "react-motion": "0.5.2",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "sass --watch src/components:src/components | react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "guppy": {
+    "id": "reactfordesignersdotcom",
+    "name": "reactfordesignersdotcom",
+    "type": "create-react-app",
+    "color": "#00bfb5",
+    "icon": null,
+    "createdAt": 1532135535407
+  },
+  "homepage": "https://zachj0hnston.github.io/reactfordesignersdotcom/"
+}

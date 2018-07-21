@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+  line-height: 1.5em;
+}
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  line-height: 1.5em;
+  font-weight: 300;
+}
+
+#root {
+  padding: 40px;
+  font-size: 24px;
+  line-height: 2em;
+  font-weight: 600;
+}
+
+.hero {
+  padding: 80px 0;
+  font-size: 40px;
+  text-align: center;
+}
+
+.content {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.resourceCard {
+  position: relative;
+  min-height: 120px;
+  margin-bottom: 16px;
+  border: 1px solid #E6E6E6;
+  border-radius: 4px;
+  padding: 20px;
+  padding-left: 120px;
+  box-shadow: 0 5px 25px 0 rgba(0,0,0,0.05);
+}
+
+.resourceCard__icon {
+  position: absolute;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+  background: blue;
+}
+
+.resourceCard__title {
+  font-size: 20px;
+}
+
+.resourceCard__description {
+  font-size: 14px;
+}
