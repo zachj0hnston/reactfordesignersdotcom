@@ -1,0 +1,30 @@
+.text-block {
+  position: relative;
+  margin-bottom: $unit-m;
+}
+
+.text-block__section {
+  position: absolute;
+  left: -38px;
+  top: 0;
+  width: $line-height-base;
+  line-height: $line-height-base;
+  border-radius: 3px;
+  background-color: $color-bg-light;
+  color: $color-text-light;
+  font-weight: 700;
+  font-size: $font-size-small;
+  text-align: center;
+}
+
+.title {
+  padding: $unit-xl 0 $unit-m 0;
+  // font-size: $font-size-large;
+  font-weight: 600;
+}
+
+.secondary-title {
+  margin-top: $unit-l;
+  font-size: $font-size-base;
+  font-weight: 600;
+}
