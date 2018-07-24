@@ -7,26 +7,14 @@ import CardCarousel from '../CardCarousel';
 import ResourceCard from '../ResourceCard';
 
 class App extends Component {
-
-
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedCard: null,
-      currentOffset: 0,
-    }
-    debugger
-    ReactGA.initialize('UA-54549890-1');
-    ReactGA.pageview(window.location.pathname);
+  state = {
+    selectedCard: null,
+    currentOffset: 0,
   }
 
   componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
+    ReactGA.initialize('UA-54549890-1');
+    ReactGA.pageview(window.location.pathname);
   }
 
   handleScroll = (event) => {
