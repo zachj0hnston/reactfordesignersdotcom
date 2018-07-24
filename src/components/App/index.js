@@ -229,7 +229,6 @@ class App extends Component {
             />
           </CardCarousel>
 
-
           <TextBlock>
             <p>From here on, the path will be different for everyone.
               Go join a <a href="https://spectrum.chat/react">React community</a>,
@@ -241,7 +240,6 @@ class App extends Component {
           <div className="footer">
             made by <a href="https://twitter.com/zach__johnston">me</a>
           </div>
-
 
         </div>
       </div>
