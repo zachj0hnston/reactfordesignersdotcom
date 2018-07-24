@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import '../index.css';
-
 import ReactGA from 'react-ga';
 import TextBlock from '../TextBlock';
 import CardCarousel from '../CardCarousel';
 import ResourceCard from '../ResourceCard';
+import { Container, Content, Footer } from './style'
 
 class App extends Component {
   state = {
@@ -39,9 +39,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <Container>
 
-        <div className="content">
+        <Content>
 
           <TextBlock>
             <h1 className="title">React is intimidating.</h1>
@@ -237,12 +237,12 @@ class App extends Component {
             <p>See, not intimidating at all.</p>
           </TextBlock>
 
-          <div className="footer">
+          <Footer>
             made by <a href="https://twitter.com/zach__johnston">me</a>
-          </div>
+          </Footer>
 
-        </div>
-      </div>
+        </Content>
+      </Container>
     );
   }
 }
