@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
 import '../index.css';
-
 import ReactGA from 'react-ga';
 import TextBlock from '../TextBlock';
 import CardCarousel from '../CardCarousel';
 import ResourceCard from '../ResourceCard';
+import { Container, Content, Footer } from './style'
 
 class App extends Component {
-
-
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedCard: null,
-      currentOffset: 0,
-    }
-    debugger
-    ReactGA.initialize('UA-54549890-1');
-    ReactGA.pageview(window.location.pathname);
+  state = {
+    selectedCard: null,
+    currentOffset: 0,
   }
 
   componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
+    ReactGA.initialize('UA-54549890-1');
+    ReactGA.pageview(window.location.pathname);
   }
 
   handleScroll = (event) => {
@@ -51,9 +39,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <Container>
 
-        <div className="content">
+        <Content>
 
           <TextBlock>
             <h1 className="title">React is intimidating.</h1>
@@ -241,7 +229,6 @@ class App extends Component {
             />
           </CardCarousel>
 
-
           <TextBlock>
             <p>From here on, the path will be different for everyone.
               Go join a <a href="https://spectrum.chat/react">React community</a>,
@@ -250,13 +237,12 @@ class App extends Component {
             <p>See, not intimidating at all.</p>
           </TextBlock>
 
-          <div className="footer">
+          <Footer>
             made by <a href="https://twitter.com/zach__johnston">me</a>
-          </div>
+          </Footer>
 
-
-        </div>
-      </div>
+        </Content>
+      </Container>
     );
   }
 }

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
+import { Outer, Inner } from './style'
 
 class CardCarousel extends Component {
-
-
   render() {
-
     return (
-      <div className="card-carousel">
-        <div className="card-carousel__inner">
+      <Outer>
+        <Inner>
           { this.props.children }
-        </div>
-      </div>
+        </Inner>
+      </Outer>
     );
   }
 }

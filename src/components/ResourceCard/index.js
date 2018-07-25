@@ -3,17 +3,11 @@ import {Motion, spring} from 'react-motion';
 import Color from 'color';
 
 class ResourceCard extends Component {
-
-  constructor(props, nextProps) {
-    super(props);
-    this.state = {
-      componentDidMount: false,
-      shouldAnimate: false,
-    }
+  state = {
+    shouldAnimate: false,
   }
 
   componentDidMount = () => {
-    this.setState({ componentDidMount: true });
     this.updateCoordinates();
   }
 
