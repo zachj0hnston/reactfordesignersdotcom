@@ -220,7 +220,7 @@ class App extends Component {
               isZoomed={this.state.selectedCard==="guppy"}
               color="#EFB81A"
               title="Guppy"
-              description="Step-by-step guide to build a game"
+              description="A GUI to manage your React apps"
               body="This macOS app helps you create, run, and manage your React apps.
                 It's ultimately just an interface for the terminal commands you would
                 otherwise be running, so if you prefer a CLI this may not be for you."
