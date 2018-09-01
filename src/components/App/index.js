@@ -113,10 +113,7 @@ class App extends Component {
           </CardCarousel>
 
           <TextBlock>
-            <p>Then, if you want a more comprehensive course, check out 
-              <a href="https://learnreact.design/">learnreact.design</a>, 
-              <a href="https://designcode.io/react">Design+Code</a>, 
-              or one of <a href="https://github.com/davo/awesome-react-framer-x">these resources</a>.</p>
+            <p>Then, if you want a more comprehensive course, check out <a href="https://learnreact.design/">learnreact.design</a>, <a href="https://designcode.io/react">Design+Code</a>, or one of <a href="https://github.com/davo/awesome-react-framer-x">these resources</a>.</p>
             <p>If you haven't used JavaScript before,
               you may find some of the content in these courses complicated.
               That's totally fine. The <a href="https://www.robinwieruch.de/javascript-fundamentals-react-requirements/">JavaScript concepts you need</a> for React
