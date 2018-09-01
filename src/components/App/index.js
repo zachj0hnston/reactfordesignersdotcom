@@ -55,7 +55,7 @@ class App extends Component {
 
           <TextBlock section="1">
             <h3 className="secondary-title">Learn the fundamentals</h3>
-            <p>Spend your first couple days going through one of these beginner React courses. Find more options <a href="https://github.com/davo/awesome-react-framer-x">here</a>.</p>
+            <p>Spend your first couple days going through one of these beginner React courses.</p>
           </TextBlock>
 
 
