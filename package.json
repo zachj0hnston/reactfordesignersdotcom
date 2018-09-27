@@ -5,6 +5,7 @@
   "dependencies": {
     "color": "^3.0.0",
     "express": "4.16.3",
+    "lodash": "4.17.11",
     "netlify": "1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

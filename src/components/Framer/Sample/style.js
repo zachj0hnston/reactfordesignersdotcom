@@ -55,16 +55,27 @@ export const HeaderTitle = styled.div`
 
 export const Story = styled.div`
     padding: 96px 28px;
-`
 
-export const TextParagraph = styled.div`
-    font-size: 16px;
-    line-height: 1.6;
-`
+    & h2 {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+    }
 
-export const TextTitle = styled.div`
-    font-size: 16px;
-    margin-top: 32px;
-    font-weight: 700;
-    line-height: 1.6;
+    & h3 {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+    }
+
+    & p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    & p + p {
+        margin-top: 0.8em;
+    }
 `
