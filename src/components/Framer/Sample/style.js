@@ -6,6 +6,7 @@ export const Container = styled.div`
 
 export const Main = styled.div`
     padding-left: 480px;
+    padding-top: 16px;
     overflow: auto;
     background: rgb(29, 31, 33);
     font-size: 14px;

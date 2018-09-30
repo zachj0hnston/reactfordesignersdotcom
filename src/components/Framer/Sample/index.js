@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import SyntaxHighlighter from 'react-syntax-highlighter/prism';
+import MarkdownIt from 'markdown-it'; // https://www.npmjs.com/package/markdown-it#syntax-extensions
+import SyntaxHighlighter from 'react-syntax-highlighter/prism'; // https://github.com/conorhastings/react-syntax-highlighter
 import { atomDark } from 'react-syntax-highlighter/styles/prism';
 import LinkedSection from '../LinkedSection';
 import { 
@@ -8,6 +9,12 @@ import {
   Header, HeaderBack, HeaderIcon, HeaderTitle
 } from './style'
 
+// Use https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js
+// Prove that markdown can be used for the text half
+// Then put markdown text to linked sections
+// Pull out code snippet and place in code side
+// Pull out multiple code snippets and combine them
+// Hard part: Detect which text points to which code
 
 class FramerSample extends Component {
   state = {
@@ -48,6 +55,7 @@ class FramerSample extends Component {
       }};
     }
   }
+  
 
   // Used in Syntax Highlighter to style the numbers
   numberStyle = (lineNumber) => {
@@ -65,46 +73,54 @@ class FramerSample extends Component {
   
   render() {
 
+    const md = new MarkdownIt();
+    const result = md.render('# markdown-it rulezz!');
+    const renderMarkdown = <div dangerouslySetInnerHTML={{__html:result}} />;
+    
     return (
       <Container>
-
+      
         <Panel>
-            <Header>
-                <HeaderIcon></HeaderIcon>
-                <HeaderTitle>Translate</HeaderTitle>
-                <HeaderBack></HeaderBack>
-            </Header>
-            <Story>
-              <p>The Translate component takes in a text string and translates it to another language using the Google Translate API. Let’s breakdown the code.</p>
-              
-              {/* LinkedSections are just blocks of text that highlight code when clicked */}
-              <LinkedSection 
-                title="Imports"
-                lines={this.range(1,2)}
-                activeLines={this.state.activeLines}
-                onClick={this.handleSectionClick}
-              >
-                <p>We start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
-              </LinkedSection>
+          <Header>
+            <HeaderIcon></HeaderIcon>
+            <HeaderTitle>Translate</HeaderTitle>
+            <HeaderBack></HeaderBack>
+          </Header>
 
-              <LinkedSection 
-                title="Default Props"
-                lines={this.range(6,22)}
-                activeLines={this.state.activeLines}
-                onClick={this.handleSectionClick}
-              >
-                <p>Now that we've imported. We can start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
-              </LinkedSection>
+          <Story>
 
-              <LinkedSection 
-                title="Property Controls"
-                lines={this.range(23,91)}
-                activeLines={this.state.activeLines}
-                onClick={this.handleSectionClick}
-              >
-                <p>Now that we've imported. We can start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
-              </LinkedSection>
-            </Story>
+            {renderMarkdown}
+
+            <p>The Translate component takes in a text string and translates it to another language using the Google Translate API. Let’s breakdown the code.</p>
+            
+            {/* LinkedSections are just blocks of text that highlight code when clicked */}
+            <LinkedSection 
+              title="Imports"
+              lines={this.range(1,2)}
+              activeLines={this.state.activeLines}
+              onClick={this.handleSectionClick}
+            >
+              <p>We start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
+            </LinkedSection>
+
+            <LinkedSection 
+              title="Default Props"
+              lines={this.range(6,22)}
+              activeLines={this.state.activeLines}
+              onClick={this.handleSectionClick}
+            >
+              <p>Now that we've imported. We can start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
+            </LinkedSection>
+
+            <LinkedSection 
+              title="Property Controls"
+              lines={this.range(23,91)}
+              activeLines={this.state.activeLines}
+              onClick={this.handleSectionClick}
+            >
+              <p>Now that we've imported. We can start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
+            </LinkedSection>
+          </Story>
         </Panel>
         <Main>
           <SyntaxHighlighter 
