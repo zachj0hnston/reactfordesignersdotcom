@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 
 import Home from '../Home';
 import FramerHome from '../Framer/Home';
-import FramerSample from '../Framer/Sample';
+import PageTranslate from '../Framer/Posts/translate';
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
         <div>
           <Route exact path="/" component={Home} />
           <Route exact path="/framer" component={FramerHome} />
-          <Route exact path="/framer/sample" component={FramerSample} />
+          <Route exact path="/framer/translate" component={PageTranslate} />
         </div>
       </Router>
     );

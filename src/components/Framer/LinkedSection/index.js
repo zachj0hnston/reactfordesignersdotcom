@@ -6,12 +6,14 @@ import { SectionWrapper, RangeBadge } from './style'
 class LinkedSection extends Component {
 
   handleSectionClick = () => {
-    this.props.onClick(this.props.lines);
+    if (this.props.lines) {
+      this.props.onClick(this.props.lines);
+    }
   }
 
   isActive = () => {
     
-    if (!this.props.activeLines.includes(0)) {
+    if (!this.props.activeLines.includes(0) && this.props.lines) {
         let hasIntersection = this.props.lines.filter(x => this.props.activeLines.includes(x));
     
         if (hasIntersection.length >= 1) {
@@ -26,17 +28,27 @@ class LinkedSection extends Component {
 
   render() {
 
-    const RANGE = this.props.lines;
-    const RANGE_STRING = RANGE[0] + "-" + RANGE[RANGE.length - 1];
+    const {title, lines, children} = this.props;
 
+    let titleJSX;
+    if (title) {
+      titleJSX = <h2>{title}</h2>;
+    }
+
+    let rangeBadgeJSX;
+    if (lines) {
+      const RANGE_STRING = lines[0] + "-" + lines[lines.length - 1];
+      rangeBadgeJSX = <RangeBadge>{RANGE_STRING}</RangeBadge>;
+    }
+    
     return (
       <SectionWrapper 
         style={LINKED_SECTION_STYLE(this.isActive())}
         onClick={this.handleSectionClick}
       >
-        <RangeBadge>{RANGE_STRING}</RangeBadge>
-        <h2>{this.props.title}</h2>
-        {this.props.children}
+        {rangeBadgeJSX}
+        {titleJSX}
+        {children}
       </SectionWrapper>
     );
   }

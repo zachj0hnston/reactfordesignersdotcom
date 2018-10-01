@@ -33,18 +33,22 @@ export const Header = styled.div`
     background: white;
     box-shadow: 0px 5px 15px 0px hsla(0, 0%, 0%, 0.10);
 `
+
 export const HeaderBack = styled.div`
     width: 32px;
     height: 100%;
 `
+
 export const HeaderIcon = styled.div`
     width: 40px;
     height: 40px;
     margin-left: 16px;
     margin-right: 12px;
     border-radius: 20px;
-    background: #FFDA61;
+    background-image: url(${props => props.imageURL});
+    background-size: 100% auto;
 `
+
 export const HeaderTitle = styled.div`
     flex: 1 0;
     font-family: "SFUIText-Bold", "SF UI Text", sans-serif;
@@ -52,6 +56,24 @@ export const HeaderTitle = styled.div`
     font-weight: 700;
     letter-spacing: -0.5px;
 `
+
+export const HeaderStoreLink = styled.a`
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.2;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+`
+
 
 
 export const Story = styled.div`

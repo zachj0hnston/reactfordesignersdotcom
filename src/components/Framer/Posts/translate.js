@@ -1,151 +1,30 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import MarkdownIt from 'markdown-it'; // https://www.npmjs.com/package/markdown-it#syntax-extensions
-import SyntaxHighlighter from 'react-syntax-highlighter/prism'; // https://github.com/conorhastings/react-syntax-highlighter
-import { atomDark } from 'react-syntax-highlighter/styles/prism';
-import LinkedSection from '../LinkedSection';
-import { 
-  Container, Panel, Main, Story,
-  Header, HeaderBack, HeaderIcon, HeaderTitle
-} from './style'
+import Template from '../Template'
 
-// Use https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js
-// Prove that markdown can be used for the text half
-// Then put markdown text to linked sections
-// Pull out code snippet and place in code side
-// Pull out multiple code snippets and combine them
-// Hard part: Detect which text points to which code
+class PageTranslate extends Component {
 
-class FramerSample extends Component {
-  state = {
-    activeLines: [0],
-  }
-
-  // When esc key pressed, set activeLines back to [0] array to remove focus
-  componentDidMount(){
-    document.addEventListener("keydown", this.handleEscKey, false);
-  }
-
-  componentWillUnmount(){
-    document.removeEventListener("keydown", this.handleEscKey, false);
-  }
-
-  handleEscKey = (event) => {
-    if(event.keyCode === 27) {
-      this.setState({activeLines: [0]})
-    }
-  }
-
-  // When a section (left) is clicked, highlight it and the relevant code
-  handleSectionClick = (sectionLines) => {
-    this.setState({activeLines: sectionLines})
-  }
-
-  // Helper function that create an array of numbers using Lodash range
-  range(start, end) {
-    return _.range(start, end + 1);
-  }
-
-  // Used in Syntax Highlighter to style the lines (I think it can also take onClick functions)
-  lineProps = (lineNumber) => {
-    if (this.state.activeLines.includes(lineNumber)) {
-      return {style: {
-        display: "block",
-        background: "rgba(255,255,255,0.1)",
-      }};
-    }
-  }
-  
-
-  // Used in Syntax Highlighter to style the numbers
-  numberStyle = (lineNumber) => {
-    if (!this.state.activeLines.includes(0) && !this.state.activeLines.includes(lineNumber)) {
-      return {
-        paddingLeft: 16,
-        opacity: 0.4,
-      };
-    } else {
-      return {
-        paddingLeft: 16,
-      }
-    }
-  }
-  
   render() {
-
-    const md = new MarkdownIt();
-    const result = md.render('# markdown-it rulezz!');
-    const renderMarkdown = <div dangerouslySetInnerHTML={{__html:result}} />;
     
     return (
-      <Container>
-      
-        <Panel>
-          <Header>
-            <HeaderIcon></HeaderIcon>
-            <HeaderTitle>Translate</HeaderTitle>
-            <HeaderBack></HeaderBack>
-          </Header>
-
-          <Story>
-
-            {renderMarkdown}
-
-            <p>The Translate component takes in a text string and translates it to another language using the Google Translate API. Let’s breakdown the code.</p>
-            
-            {/* LinkedSections are just blocks of text that highlight code when clicked */}
-            <LinkedSection 
-              title="Imports"
-              lines={this.range(1,2)}
-              activeLines={this.state.activeLines}
-              onClick={this.handleSectionClick}
-            >
-              <p>We start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
-            </LinkedSection>
-
-            <LinkedSection 
-              title="Default Props"
-              lines={this.range(6,22)}
-              activeLines={this.state.activeLines}
-              onClick={this.handleSectionClick}
-            >
-              <p>Now that we've imported. We can start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
-            </LinkedSection>
-
-            <LinkedSection 
-              title="Property Controls"
-              lines={this.range(23,91)}
-              activeLines={this.state.activeLines}
-              onClick={this.handleSectionClick}
-            >
-              <p>Now that we've imported. We can start by importing * or everything from React. Every code component has this so just leave it as is. We also import Frame, PropertyControls, and ControlType from Framer. Framer is the library that contains tons of helpful components and functions. Read more about what you can import from Framer here.</p>
-            </LinkedSection>
-          </Story>
-        </Panel>
-        <Main>
-          <SyntaxHighlighter 
-            language='typescript'
-            style={atomDark}
-            showLineNumbers={true}
-            wrapLines={true}
-            customStyle={{
-              margin: 0,
-              padding: 0,
-            }}
-            lineNumberStyle={this.numberStyle}
-            lineProps={this.lineProps}
-          >
-            {CODE_STRING}
-          </SyntaxHighlighter>
-        </Main>
-
-      </Container>
+      <Template 
+        title="Translate"
+        url="zach/translate"
+        content={content}
+        code={code}
+      />
     );
   }
 }
 
-// This blob of code needs to be moved somewhere better
-const CODE_STRING = `import * as React from "react";
+
+const content = [
+  {text: "This is an introo."},
+  {title: "Imports", lines: "1-2", text: "Now that we've imported. We can start by importing."},
+  {title: "Imports", lines: "3-9", text: "Cool. Now that we've imported. We can start by importing."},
+];
+
+
+const code = `import * as React from "react";
 import { Frame, PropertyControls, ControlType } from "framer";
 
 export class Translate_Text extends React.Component {
@@ -332,4 +211,4 @@ export class Translate_Text extends React.Component {
 
 `;
 
-export default FramerSample;
+export default PageTranslate;
