@@ -28,8 +28,24 @@ export default class Template extends Component {
     document.addEventListener("keydown", this.handleEscKey, false);
   }
 
+  componentWillMount() {
+    this.setCodeLinesState(this.props.content);
+  }
+
   componentWillUnmount(){
     document.removeEventListener("keydown", this.handleEscKey, false);
+  }
+
+  // This state helps to find the respective breakdown for each line of code
+  setCodeLinesState = (content) => {
+    let lines = content.filter(el => el.hasOwnProperty('lines'))
+    const codeLines = lines.map( el => {
+      const start = parseInt(el.lines.match(/[^-]*/i)[0]);
+      const end = parseInt(el.lines.match(/[^-]*$/i)[0]) + 1;
+      const range = _.range(start, end);
+      return range;
+    })
+    this.setState({codeLines});
   }
 
   handleEscKey = (event) => {
@@ -40,7 +56,33 @@ export default class Template extends Component {
 
   // When a section (left) is clicked, highlight it and the relevant code
   handleSectionClick = (sectionLines) => {
-    this.setState({activeLines: sectionLines})
+    this.setState({activeLines: sectionLines});
+  }
+
+  // When a line code (right) is cliked, highlight it and the relevant breakdown
+  handleCodeClick = (event) => {
+    let activeLines;
+    const { codeLines } = this.state;
+    const target = event.target
+    let wrapper = target.parentNode;
+    
+    // Go upper in the DOM if is a nested span
+    if(wrapper.tagName == 'SPAN') {
+      wrapper = wrapper.parentNode;
+    }
+
+    // Get index position from clicked element (span)
+    const index = Array.from(wrapper.children).indexOf(target.parentNode) + 1;
+    
+    // Check if it is a valid line of code was clicked
+    if(index != 0) {
+      activeLines = codeLines.find(el => { return el.includes(index); } );
+    }
+
+    // If we have a valid activeLines, then set the new State
+    if(activeLines) {
+      this.setState({activeLines});
+    }
   }
 
   // Helper function that create an array of numbers using Lodash range
@@ -149,6 +191,7 @@ export default class Template extends Component {
             }}
             lineNumberStyle={this.numberStyle}
             lineProps={this.lineProps}
+            onClick={this.handleCodeClick}
           >
             {this.props.code}
           </SyntaxHighlighter>

@@ -5,6 +5,9 @@ export const SectionWrapper = styled.div`
     margin: 8px -16px 0 -16px;
     padding: 8px 16px 16px 16px;
     border-radius: 6px;
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 export const RangeBadge = styled.div`

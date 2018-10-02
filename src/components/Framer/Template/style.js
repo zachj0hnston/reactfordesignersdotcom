@@ -13,6 +13,10 @@ export const Main = styled.div`
     font-size: 14px;
     color: white;
     background: rgb(29, 31, 33);
+
+    & code > span > span {
+        cursor: pointer;
+    }
 `
 
 export const Panel = styled.div`
