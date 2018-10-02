@@ -20,7 +20,12 @@ export default class PageUnsplash extends Component {
 const content = [
   {text: "This is an introo."},
   {title: "Imports", lines: "1-2", text: "Now that we've imported. We can start by importing."},
-  {title: "Other", lines: "3-9", text: "Cool. Now that we've imported. We can start by importing."},
+  {title: "Other", lines: "4-9", text: "Cool. Now that we've imported. We can start by importing."},
+  {title: "Props", lines: "11-16", text: "PENDING. Should have a nice explanation about props..."},
+  {title: "Export class", lines: "18-18", text: "PENDING. Shoul have a nice explanation about the class..."},
+  {title: "DefaultProps", lines: "19-23", text: "PENDING. Shoul have a nice explanation about the DefaultProps..."},
+  {title: "propertyControls", lines: "25-32", text: "PENDING. Shoul have a nice explanation about propertyControls..."},
+  {title: "state", lines: "34-36", text: "PENDING. Shoul have a nice explanation about state..."},
 ];
 
 
