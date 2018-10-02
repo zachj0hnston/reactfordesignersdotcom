@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { SectionWrapper, RangeBadge } from './style'
 
 
-class LinkedSection extends Component {
+export default class LinkedSection extends Component {
 
   handleSectionClick = () => {
     if (this.props.lines) {
@@ -59,5 +59,3 @@ function LINKED_SECTION_STYLE(isActive) {
     background: isActive ? "rgba(0,0,0,0.08)" : "transparent",
   };
 }
-
-export default LinkedSection;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Template from '../Template'
 
-class PageTranslate extends Component {
+export default class PageTranslate extends Component {
 
   render() {
     
@@ -20,7 +20,7 @@ class PageTranslate extends Component {
 const content = [
   {text: "This is an introo."},
   {title: "Imports", lines: "1-2", text: "Now that we've imported. We can start by importing."},
-  {title: "Imports", lines: "3-9", text: "Cool. Now that we've imported. We can start by importing."},
+  {title: "Other", lines: "3-9", text: "Cool. Now that we've imported. We can start by importing."},
 ];
 
 
@@ -210,5 +210,3 @@ export class Translate_Text extends React.Component {
 }
 
 `;
-
-export default PageTranslate;

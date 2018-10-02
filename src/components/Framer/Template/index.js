@@ -3,10 +3,11 @@ import _ from 'lodash';
 import MarkdownIt from 'markdown-it'; // https://www.npmjs.com/package/markdown-it#syntax-extensions
 import SyntaxHighlighter from 'react-syntax-highlighter/prism'; // https://github.com/conorhastings/react-syntax-highlighter
 import { atomDark } from 'react-syntax-highlighter/styles/prism';
-import LinkedSection from '../LinkedSection';
+import Nav from './Nav';
+import LinkedSection from './LinkedSection';
 import { 
   Container, Panel, Main, Story,
-  Header, HeaderBack, HeaderIcon, HeaderTitle, HeaderStoreLink,
+  FramerPreviewContainer, FramerPreviewArtwork, FramerPreviewTitle, FramerPreviewSubtext,
 } from './style'
 
 // Use https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js
@@ -16,7 +17,7 @@ import {
 // Pull out multiple code snippets and combine them
 // Hard part: Detect which text points to which code
 
-class Template extends Component {
+export default class Template extends Component {
 
   state = {
     activeLines: [0],
@@ -77,8 +78,9 @@ class Template extends Component {
     const md = new MarkdownIt();
 
     const FRAMER_URL = "https://store.framer.com/package/" + this.props.url;
-    const FRAMER_IMG_URL = "https://api.framer.com/store/assets/" + this.props.url + "/icon.png";
-    
+    const FRAMER_ICON_URL = "https://api.framer.com/store/assets/" + this.props.url + "/icon.png";
+    const FRAMER_ARTWORK_URL = "https://api.framer.com/store/assets/" + this.props.url + "/artwork.png";
+
     const STORY_BODY = this.props.content.map((object, index) => {
 
       const TITLE = object.title;
@@ -90,42 +92,49 @@ class Template extends Component {
         let end = SPLIT[1]++;
             end++; // add 1 since arrays start from 0
         lines = _.range(start, end);
-        console.log(end); 
       }
 
       const TEXT = <div dangerouslySetInnerHTML={{__html:md.render(object.text)}} />;
       
-
       return (
         <LinkedSection 
           title={TITLE}
           lines={lines}
           activeLines={this.state.activeLines}
           onClick={this.handleSectionClick}
+          key={TITLE}
         >
           {TEXT}
         </LinkedSection>
       );
     });
+
+    const STORY_FOOTER = () => {
+      if (!this.props.home) {
+        return (
+          <FramerPreview
+            url={FRAMER_URL}
+            artworkURL={FRAMER_ARTWORK_URL}
+            title={this.props.title}
+          />
+        )
+      }
+    };
     
     
     return (
       <Container>
       
         <Panel>
-          <Header>
-            <HeaderIcon imageURL={FRAMER_IMG_URL}></HeaderIcon>
-            <HeaderTitle>{this.props.title}</HeaderTitle>
-            <HeaderBack></HeaderBack>
-            <HeaderStoreLink href={FRAMER_URL} target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="21"><path d="M 0 0 L 14 0 L 14 7 L 7 7 Z" fill="#000"></path><path d="M 0 7 L 7 7 L 14 14 L 0 14 Z" fill="#000"></path><path d="M 0 14 L 7 14 L 7 21 Z" fill="#000"></path></svg>
-            </HeaderStoreLink>
-          </Header>
+
+          <Nav 
+            active={this.props.title}
+            home={this.props.home}
+          />
 
           <Story>
-
             {STORY_BODY}
-            
+            {STORY_FOOTER()}
           </Story>
         </Panel>
         <Main>
@@ -148,6 +157,21 @@ class Template extends Component {
       </Container>
     );
   }
-}
+};
 
-export default Template;
+
+
+class FramerPreview extends Component {
+
+  render() {
+
+    return (
+      <FramerPreviewContainer href={this.props.url}>
+        <FramerPreviewArtwork imageURL={this.props.artworkURL}></FramerPreviewArtwork>
+        <FramerPreviewTitle>{this.props.title}</FramerPreviewTitle>
+        <FramerPreviewSubtext>Open in the Framer Store</FramerPreviewSubtext>
+        <svg xmlns="http://www.w3.org/2000/svg"><path d="M 0 0 L 14 0 L 14 7 L 7 7 Z" fill="#000"></path><path d="M 0 7 L 7 7 L 14 14 L 0 14 Z" fill="#000"></path><path d="M 0 14 L 7 14 L 7 21 Z" fill="#000"></path></svg>
+      </FramerPreviewContainer>
+    );
+  }
+}
