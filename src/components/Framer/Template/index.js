@@ -6,7 +6,7 @@ import { atomDark } from 'react-syntax-highlighter/styles/prism';
 import Nav from './Nav';
 import LinkedSection from './LinkedSection';
 import { 
-  Container, Panel, Main, Story,
+  Container, Panel, CodeContainer, Story,
   FramerPreviewContainer, FramerPreviewArtwork, FramerPreviewTitle, FramerPreviewSubtext,
 } from './style'
 
@@ -57,13 +57,17 @@ export default class Template extends Component {
   // When a section (left) is clicked, highlight it and the relevant code
   handleSectionClick = (sectionLines) => {
     this.setState({activeLines: sectionLines});
+
+    // Scroll to that code
+    const TOP_LINE = sectionLines[0];
+    this.scrollToCode(TOP_LINE);
   }
 
-  // When a line code (right) is cliked, highlight it and the relevant breakdown
+  // When a line code (right) is clicked, highlight it and the relevant breakdown
   handleCodeClick = (event) => {
     let activeLines;
     const { codeLines } = this.state;
-    const target = event.target
+    const target = event.target;
     let wrapper = target.parentNode;
     
     // Go upper in the DOM if is a nested span
@@ -82,7 +86,28 @@ export default class Template extends Component {
     // If we have a valid activeLines, then set the new State
     if(activeLines) {
       this.setState({activeLines});
+      this.scrollToSection();
     }
+  }
+
+  scrollToSection = (section) => {
+
+    const OFFSET = 100; // Not sure how to target the right section
+
+    // this.panelRef.scroll({
+    //   top: OFFSET,
+    //   behavior: 'smooth'
+    // })
+  }
+
+  scrollToCode = (line) => {
+
+    const OFFSET = line * 21 - 100; // Currently hard coded to 21px as that's hight of each line
+
+    this.codeContainerRef.scroll({
+      top: OFFSET,
+      behavior: 'smooth'
+    });
   }
 
   // Helper function that create an array of numbers using Lodash range
@@ -162,40 +187,33 @@ export default class Template extends Component {
         )
       }
     };
-    
-    
+  
     return (
       <Container>
-      
-        <Panel>
-
+        <Panel innerRef={(element) => this.panelRef = element}>
           <Nav 
             active={this.props.title}
             home={this.props.home}
           />
-
           <Story>
             {STORY_BODY}
             {STORY_FOOTER()}
           </Story>
         </Panel>
-        <Main>
+        <CodeContainer innerRef={(element) => this.codeContainerRef = element}>
           <SyntaxHighlighter 
             language='typescript'
             style={atomDark}
             showLineNumbers={true}
             wrapLines={true}
-            customStyle={{
-              margin: 0,
-              padding: 0,
-            }}
+            customStyle={{ margin: 0, padding: 0 }}
             lineNumberStyle={this.numberStyle}
             lineProps={this.lineProps}
             onClick={this.handleCodeClick}
           >
             {this.props.code}
           </SyntaxHighlighter>
-        </Main>
+        </CodeContainer>
 
       </Container>
     );

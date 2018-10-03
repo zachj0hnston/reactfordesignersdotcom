@@ -4,7 +4,7 @@ export const Container = styled.div`
 
 `
 
-export const Main = styled.div`
+export const CodeContainer = styled.div`
     height: 100vh;
     padding-left: 480px;
     padding-top: 16px;
