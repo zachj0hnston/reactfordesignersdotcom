@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import MarkdownIt from 'markdown-it'; // https://www.npmjs.com/package/markdown-it#syntax-extensions
-import SyntaxHighlighter from 'react-syntax-highlighter/prism'; // https://github.com/conorhastings/react-syntax-highlighter
-import { atomDark } from 'react-syntax-highlighter/styles/prism';
 import Nav from './Nav';
 import LinkedSection from './LinkedSection';
+import Code from './Code';
 import { 
   Container, Panel, CodeContainer, Story,
   FramerPreviewContainer, FramerPreviewArtwork, FramerPreviewTitle, FramerPreviewSubtext,
 } from './style'
 
-// Use https://github.com/rexxars/react-markdown/blob/master/demo/src/demo.js
-// Prove that markdown can be used for the text half
-// Then put markdown text to linked sections
-// Pull out code snippet and place in code side
-// Pull out multiple code snippets and combine them
-// Hard part: Detect which text points to which code
-
 export default class Template extends Component {
 
   state = {
+    codeLines: [0],
     activeLines: [0],
+  }
+
+  // Before it mounts, create a state with an array of valid code sections
+  componentWillMount() {
+    this.setCodeLinesState(this.props.content);
   }
 
   // When esc key pressed, set activeLines back to [0] array to remove focus
@@ -28,15 +26,22 @@ export default class Template extends Component {
     document.addEventListener("keydown", this.handleEscKey, false);
   }
 
-  componentWillMount() {
-    this.setCodeLinesState(this.props.content);
-  }
-
   componentWillUnmount(){
     document.removeEventListener("keydown", this.handleEscKey, false);
   }
 
-  // This state helps to find the respective breakdown for each line of code
+  handleEscKey = (event) => {
+    if(event.keyCode === 27) {
+      this.setState({activeLines: [0]})
+    }
+  }
+
+  // Helper function that create an array of numbers using Lodash range
+  range(start, end) {
+    return _.range(start, end + 1);
+  }
+
+  // This function helps to find the respective breakdown for each line of code
   setCodeLinesState = (content) => {
     let lines = content.filter(el => el.hasOwnProperty('lines'))
     const codeLines = lines.map( el => {
@@ -48,11 +53,6 @@ export default class Template extends Component {
     this.setState({codeLines});
   }
 
-  handleEscKey = (event) => {
-    if(event.keyCode === 27) {
-      this.setState({activeLines: [0]})
-    }
-  }
 
   // When a section (left) is clicked, highlight it and the relevant code
   handleSectionClick = (sectionLines) => {
@@ -109,43 +109,13 @@ export default class Template extends Component {
       behavior: 'smooth'
     });
   }
-
-  // Helper function that create an array of numbers using Lodash range
-  range(start, end) {
-    return _.range(start, end + 1);
-  }
-
-  // Used in Syntax Highlighter to style the lines (I think it can also take onClick functions)
-  lineProps = (lineNumber) => {
-    if (this.state.activeLines.includes(lineNumber)) {
-      return {style: {
-        display: "block",
-        background: "rgba(255,255,255,0.1)",
-      }};
-    }
-  }
-  
-
-  // Used in Syntax Highlighter to style the numbers
-  numberStyle = (lineNumber) => {
-    if (!this.state.activeLines.includes(0) && !this.state.activeLines.includes(lineNumber)) {
-      return {
-        paddingLeft: 16,
-        opacity: 0.4,
-      };
-    } else {
-      return {
-        paddingLeft: 16,
-      }
-    }
-  }
   
   render() {
 
     const md = new MarkdownIt();
 
     const FRAMER_URL = "https://store.framer.com/package/" + this.props.url;
-    const FRAMER_ICON_URL = "https://api.framer.com/store/assets/" + this.props.url + "/icon.png";
+    // const FRAMER_ICON_URL = "https://api.framer.com/store/assets/" + this.props.url + "/icon.png";
     const FRAMER_ARTWORK_URL = "https://api.framer.com/store/assets/" + this.props.url + "/artwork.png";
 
     const STORY_BODY = this.props.content.map((object, index) => {
@@ -201,18 +171,12 @@ export default class Template extends Component {
           </Story>
         </Panel>
         <CodeContainer innerRef={(element) => this.codeContainerRef = element}>
-          <SyntaxHighlighter 
-            language='typescript'
-            style={atomDark}
-            showLineNumbers={true}
-            wrapLines={true}
-            customStyle={{ margin: 0, padding: 0 }}
-            lineNumberStyle={this.numberStyle}
-            lineProps={this.lineProps}
+          <Code 
+            code={this.props.code}
+            codeLines={this.state.codeLines}
+            activeLines={this.state.activeLines}
             onClick={this.handleCodeClick}
-          >
-            {this.props.code}
-          </SyntaxHighlighter>
+          />
         </CodeContainer>
 
       </Container>

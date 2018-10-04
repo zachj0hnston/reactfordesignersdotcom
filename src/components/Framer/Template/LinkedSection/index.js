@@ -11,12 +11,31 @@ export default class LinkedSection extends Component {
     }
   }
 
+  scrollToSelf = () => {
+
+    const SECTION = this.sectionRef;
+    const CONTAINER = this.sectionRef.parentNode.parentNode;
+
+    const OFFSET_FROM_WINDOW = SECTION.getBoundingClientRect().top;
+    // const OFFSET_FROM_CONTAINER = SECTION.position().top;
+    
+    if (OFFSET_FROM_WINDOW < 50 || OFFSET_FROM_WINDOW > 300) {
+      CONTAINER.scroll({
+        top: 200,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   isActive = () => {
     
     if (!this.props.activeLines.includes(0) && this.props.lines) {
         let hasIntersection = this.props.lines.filter(x => this.props.activeLines.includes(x));
     
         if (hasIntersection.length >= 1) {
+
+          this.scrollToSelf();
+
           return true
         } else {
           return false
@@ -45,6 +64,7 @@ export default class LinkedSection extends Component {
       <SectionWrapper 
         style={LINKED_SECTION_STYLE(this.isActive())}
         onClick={this.handleSectionClick}
+        innerRef={(element) => this.sectionRef = element}
       >
         {rangeBadgeJSX}
         {titleJSX}
