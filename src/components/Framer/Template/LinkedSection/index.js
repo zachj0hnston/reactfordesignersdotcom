@@ -15,13 +15,14 @@ export default class LinkedSection extends Component {
 
     const SECTION = this.sectionRef;
     const CONTAINER = this.sectionRef.parentNode.parentNode;
-
     const OFFSET_FROM_WINDOW = SECTION.getBoundingClientRect().top;
-    // const OFFSET_FROM_CONTAINER = SECTION.position().top;
+    const OFFSET_FROM_CONTAINER = SECTION.offsetTop;
+    const IDEAL_TOP_PADDING = 100;
+    const IDEAL_SCROLL = OFFSET_FROM_CONTAINER - IDEAL_TOP_PADDING;
     
     if (OFFSET_FROM_WINDOW < 50 || OFFSET_FROM_WINDOW > 300) {
       CONTAINER.scroll({
-        top: 200,
+        top: IDEAL_SCROLL,
         behavior: 'smooth'
       });
     }

@@ -13,10 +13,18 @@ export default class Code extends Component {
   // Used in Syntax Highlighter to style the lines (I think it can also take onClick functions)
   lineProps = (lineNumber) => {
     if (this.props.activeLines.includes(lineNumber)) {
-      return {style: {
-        display: "block",
-        background: "rgba(255,255,255,0.1)",
-      }};
+      return {
+        style: {
+          display: "block",
+          background: "rgba(255,255,255,0.1)",
+        }
+      };
+    } else {
+      return {
+        style: {
+          display: "block",
+        }
+      };
     }
   }
 

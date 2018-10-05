@@ -53,7 +53,6 @@ export default class Template extends Component {
     this.setState({codeLines});
   }
 
-
   // When a section (left) is clicked, highlight it and the relevant code
   handleSectionClick = (sectionLines) => {
     this.setState({activeLines: sectionLines});
@@ -86,18 +85,7 @@ export default class Template extends Component {
     // If we have a valid activeLines, then set the new State
     if(activeLines) {
       this.setState({activeLines});
-      this.scrollToSection();
     }
-  }
-
-  scrollToSection = (section) => {
-
-    const OFFSET = 100; // Not sure how to target the right section
-
-    // this.panelRef.scroll({
-    //   top: OFFSET,
-    //   behavior: 'smooth'
-    // })
   }
 
   scrollToCode = (line) => {
