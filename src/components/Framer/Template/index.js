@@ -19,6 +19,12 @@ export default class Template extends Component {
   // Before it mounts, create a state with an array of valid code sections
   componentWillMount() {
     this.setCodeLinesState(this.props.content);
+
+    // Change zoom level (hack for mobile phones)
+    var metaTag=document.createElement('meta');
+    metaTag.name = "viewport"
+    metaTag.content = "width=1200"
+    document.getElementsByTagName('head')[0].appendChild(metaTag);
   }
 
   // When esc key pressed, set activeLines back to [0] array to remove focus
@@ -78,7 +84,7 @@ export default class Template extends Component {
     if (where === "back") {
       activeLinesIndex--;
     }
-    
+
     // If it reaches the end, loop back to beginning
     if (activeLinesIndex > CODE_LINES.length - 1) {
       activeLinesIndex = 0;
