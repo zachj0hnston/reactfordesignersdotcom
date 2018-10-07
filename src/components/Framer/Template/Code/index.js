@@ -20,11 +20,20 @@ export default class Code extends Component {
         }
       };
     } else {
-      return {
-        style: {
-          display: "block",
+      if (this.props.codeLines.flat().includes(lineNumber)) {
+        return {
+          style: {
+            cursor: "pointer",
+            display: "block",
+          }
         }
-      };
+      } else {
+        return {
+          style: {
+            display: "block",
+          }
+        };
+      }
     }
   }
 

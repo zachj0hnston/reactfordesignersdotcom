@@ -23,16 +23,30 @@ export default class Template extends Component {
 
   // When esc key pressed, set activeLines back to [0] array to remove focus
   componentDidMount(){
-    document.addEventListener("keydown", this.handleEscKey, false);
+    document.addEventListener("keydown", this.handleKeyboardControls, false);
   }
 
   componentWillUnmount(){
-    document.removeEventListener("keydown", this.handleEscKey, false);
+    document.removeEventListener("keydown", this.handleKeyboardControls, false);
   }
 
-  handleEscKey = (event) => {
-    if(event.keyCode === 27) {
+  handleKeyboardControls = (event) => {
+
+    const CODE = event.keyCode;
+
+    // Esc: Lose focus
+    if(CODE === 27) {
       this.setState({activeLines: [0]})
+    }
+
+    // Down/Right: Next section
+    if(CODE === 40 || CODE === 39) {
+      this.goToSection("next");
+    }
+
+    // Up/Left: Previous section
+    if(CODE === 38 || CODE === 37) {
+      this.goToSection("back");
     }
   }
 
@@ -41,12 +55,56 @@ export default class Template extends Component {
     return _.range(start, end + 1);
   }
 
+  goToSection = (where) => {
+
+    const CODE_LINES = this.state.codeLines;
+    const ACTIVE_LINES = this.state.activeLines;
+    let codeLinesHash = {};
+    let activeLinesIndex;
+    let newActiveLines;
+
+    for(var i = 0; i < CODE_LINES.length; i++) {
+      codeLinesHash[CODE_LINES[i]] = i;
+    }
+    
+    if(codeLinesHash.hasOwnProperty(ACTIVE_LINES)) {
+      activeLinesIndex = codeLinesHash[ACTIVE_LINES];
+    }
+
+    if (where === "next") {
+      activeLinesIndex++;
+    }
+
+    if (where === "back") {
+      activeLinesIndex--;
+    }
+    
+    // If it reaches the end, loop back to beginning
+    if (activeLinesIndex > CODE_LINES.length - 1) {
+      activeLinesIndex = 0;
+    }
+
+    // And if before beginning, go to end
+    if (activeLinesIndex < 0) {
+      activeLinesIndex = CODE_LINES.length - 1;
+    }
+
+    newActiveLines = CODE_LINES[activeLinesIndex];
+
+    this.setState({activeLines: newActiveLines})
+    
+  }
+
   // This function helps to find the respective breakdown for each line of code
   setCodeLinesState = (content) => {
-    let lines = content.filter(el => el.hasOwnProperty('lines'))
+
+    // Scan the content blob and pull out the lines properties
+    let lines = content.filter(el => el.hasOwnProperty('lines'));
+
+    // Map through the lines, find lowest and highest numbers, then output a range
     const codeLines = lines.map( el => {
       const start = parseInt(el.lines.match(/[^-]*/i)[0]);
-      const end = parseInt(el.lines.match(/[^-]*$/i)[0]) + 1;
+      const end = parseInt(el.lines.match(/[^-]*$/i)[0]) + 1; // Add one since code starts at 1 not zero
       const range = _.range(start, end);
       return range;
     })
@@ -64,27 +122,30 @@ export default class Template extends Component {
 
   // When a line code (right) is clicked, highlight it and the relevant breakdown
   handleCodeClick = (event) => {
-    let activeLines;
-    const { codeLines } = this.state;
-    const target = event.target;
-    let wrapper = target.parentNode;
-    
+    const LINE_BLOCK = this.identifyLineBlock(event.target);
+    LINE_BLOCK ? this.setState({activeLines: LINE_BLOCK}) : "";
+  }
+
+  identifyLineBlock = (target) => {
+
+    let targetEl = target;
+    let wrapperEl = target.parentNode;
+
     // Go upper in the DOM if is a nested span
-    if(wrapper.tagName == 'SPAN') {
-      wrapper = wrapper.parentNode;
+    if(wrapperEl.tagName == 'SPAN') {
+      wrapperEl = wrapperEl.parentNode;
+      targetEl = targetEl.parentNode;
     }
 
     // Get index position from clicked element (span)
-    const index = Array.from(wrapper.children).indexOf(target.parentNode) + 1;
+    const index = Array.from(wrapperEl.children).indexOf(targetEl) + 1;
+    console.log(index);
     
     // Check if it is a valid line of code was clicked
     if(index != 0) {
-      activeLines = codeLines.find(el => { return el.includes(index); } );
-    }
 
-    // If we have a valid activeLines, then set the new State
-    if(activeLines) {
-      this.setState({activeLines});
+      // Based on the line number that was clicked find which array of numbers includes it
+      return this.state.codeLines.find(el => { return el.includes(index); } );
     }
   }
 
