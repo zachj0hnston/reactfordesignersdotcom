@@ -22,7 +22,23 @@ export const Footer = styled.div`
 export const FramerBanner = styled.div`
   background: #000;
   color: white;
-  text-align: center;
   padding: 16px;
+  border-radius: 5px;
+  text-align: center;
   font-size: 16px;
+  font-weight: 500;
+`
+
+export const NewBadge = styled.div`
+  display:inline-block;
+  position: relative;
+  top: -2px;
+  margin-right: 8px;
+  padding: 5px;
+  line-height: 1em;
+  border-radius: 4px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
 `

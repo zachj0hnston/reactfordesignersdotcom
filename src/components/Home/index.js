@@ -5,7 +5,7 @@ import '../index.css';
 import TextBlock from '../TextBlock';
 import CardCarousel from '../CardCarousel';
 import ResourceCard from '../ResourceCard';
-import { Container, Content, Footer, FramerBanner } from './style'
+import { Container, Content, Footer, FramerBanner, NewBadge } from './style'
 
 class Home extends Component {
   state = {
@@ -36,12 +36,6 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        
-        <Link to="/framer">
-            <FramerBanner>
-              Learning React for Framer X? Check out these component breakdowns.
-            </FramerBanner>
-        </Link>
 
         <Content>
 
@@ -128,6 +122,13 @@ class Home extends Component {
               source projects to see how React looks in action.
               Pro tip: Install <a href="https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc">Octotree</a> for Chrome to navigate Github projects.</p>
           </TextBlock>
+
+          <Link to="/framer">
+              <FramerBanner>
+                <NewBadge>NEW</NewBadge>
+                React Component breakdowns →
+              </FramerBanner>
+          </Link>
 
           <CardCarousel>
             <ResourceCard
