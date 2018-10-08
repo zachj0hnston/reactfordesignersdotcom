@@ -6,7 +6,7 @@ export const Container = styled.div`
     overflow: hidden;
     top: 12px;
     left: 12px;
-    width: calc(480px - 24px);
+    width: calc(540px - 24px);
     border-radius: 8px;
     background: white;
     box-shadow: 0px 5px 15px 0px hsla(0, 0%, 0%, 0.10);

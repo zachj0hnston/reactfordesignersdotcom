@@ -15,11 +15,9 @@ export const RangeBadge = styled.div`
     position: relative;
     top: 4px;
     left: 4px;
-    padding: 4px 7px;
     border-radius: 4px;
-    background: rgb(29, 31, 33);
     font-family: Inconsolata, Monaco, Consolas, "Courier New";
     font-size: 14px;
-    color: #E4E8E5;
+    color: #949494;
     line-height: 1.2em;
 `

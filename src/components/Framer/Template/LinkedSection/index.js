@@ -6,8 +6,8 @@ import { SectionWrapper, RangeBadge } from './style'
 export default class LinkedSection extends Component {
 
   handleSectionClick = () => {
-    if (this.props.lines) {
-      this.props.onClick(this.props.lines);
+    if (this.stringToArray(this.props.lines)) {
+      this.props.onClick(this.stringToArray(this.props.lines));
     }
   }
 
@@ -28,27 +28,46 @@ export default class LinkedSection extends Component {
     }
   }
 
-  isActive = () => {
-    
-    if (!this.props.activeLines.includes(0) && this.props.lines) {
-        let hasIntersection = this.props.lines.filter(x => this.props.activeLines.includes(x));
-    
-        if (hasIntersection.length >= 1) {
+  stringToArray = (stringArray) => {
+    if (stringArray) {
+      const SPLIT = stringArray.split("-");
+      let start = SPLIT[0];
+      let end = SPLIT[1];
 
-          this.scrollToSelf();
-
-          return true
-        } else {
-          return false
-        }
+      if (end) {
+        end++
+      } else {
+        end = Number(start) + 1;
+      }
+      
+      return _.range(start, end);
+          
     } else {
+      return false;
+    }
+  }
+
+  isActive = () => {
+    if (this.props.lines) {
+
+      const ACTIVE_LINES = this.props.activeLines;
+      const LINES = this.stringToArray(this.props.lines);
+  
+      // If the first number in each matches, consider it active
+      if (ACTIVE_LINES[0] === LINES[0]) {
+        this.scrollToSelf();
+        return true;
+      } else {
         return false;
+      }
     }
   }
 
   render() {
 
-    const {title, lines, children} = this.props;
+    const {title, children} = this.props;
+
+    const LINES = this.stringToArray(this.props.lines);
 
     let titleJSX;
     if (title) {
@@ -56,8 +75,8 @@ export default class LinkedSection extends Component {
     }
 
     let rangeBadgeJSX;
-    if (lines) {
-      const RANGE_STRING = lines[0] + "-" + lines[lines.length - 1];
+    if (LINES) {
+      const RANGE_STRING = LINES[1] ? LINES[0] + "-" + LINES[LINES.length - 1] : LINES[0];
       rangeBadgeJSX = <RangeBadge>{RANGE_STRING}</RangeBadge>;
     }
     

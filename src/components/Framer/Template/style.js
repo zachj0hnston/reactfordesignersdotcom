@@ -6,7 +6,7 @@ export const Container = styled.div`
 
 export const CodeContainer = styled.div`
     height: 100vh;
-    padding-left: 480px;
+    padding-left: 540px;
     padding-top: 16px;
     overflow: auto;
     background: rgb(29, 31, 33);
@@ -21,7 +21,7 @@ export const CodeContainer = styled.div`
 
 export const Panel = styled.div`
     position: fixed;
-    width: 480px;
+    width: 540px;
     height: 100vh;
     overflow: auto;
     background: #F7F7F7;
@@ -92,7 +92,7 @@ export const Story = styled.div`
         font-weight: 700;
         font-size: 20px;
         line-height: 1.6;
-        margin-bottom: 8px;
+        margin: 4px 0;
     }
 
     & h3 {
@@ -115,5 +115,14 @@ export const Story = styled.div`
         width: calc(100% + 24px);
         margin: 0.8em -12px;
         height: auto;
+    }
+
+    code {
+        padding: 2px 5px;
+        border-radius: 3px;
+        background: rgb(29, 31, 33);
+        font-family: Inconsolata, Monaco, Consolas, "Courier New";
+        color: #E4E8E5;
+        font-size: 14px;
     }
 `

@@ -56,11 +56,6 @@ export default class Template extends Component {
     }
   }
 
-  // Helper function that create an array of numbers using Lodash range
-  range(start, end) {
-    return _.range(start, end + 1);
-  }
-
   goToSection = (where) => {
 
     const CODE_LINES = this.state.codeLines;
@@ -167,7 +162,11 @@ export default class Template extends Component {
   
   render() {
 
-    const md = new MarkdownIt();
+    const md = new MarkdownIt({
+      html: true,
+      breaks: true,
+      linkify: true,
+    });
 
     const FRAMER_URL = "https://store.framer.com/package/" + this.props.url;
     // const FRAMER_ICON_URL = "https://api.framer.com/store/assets/" + this.props.url + "/icon.png";
@@ -177,24 +176,15 @@ export default class Template extends Component {
 
       const TITLE = object.title;
       
-      let lines;
-      if (object.lines) {
-        const SPLIT = object.lines.split("-");
-        let start = SPLIT[0];
-        let end = SPLIT[1]++;
-            end++; // add 1 since arrays start from 0
-        lines = _.range(start, end);
-      }
-
       const TEXT = <div dangerouslySetInnerHTML={{__html:md.render(object.text)}} />;
       
       return (
         <LinkedSection 
           title={TITLE}
-          lines={lines}
+          lines={object.lines}
           activeLines={this.state.activeLines}
           onClick={this.handleSectionClick}
-          key={TITLE}
+          key={index}
         >
           {TEXT}
         </LinkedSection>

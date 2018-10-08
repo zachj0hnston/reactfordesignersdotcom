@@ -126,7 +126,7 @@ class Home extends Component {
           <Link to="/framer">
               <FramerBanner>
                 <NewBadge>NEW</NewBadge>
-                React Component breakdowns →
+                Framer X component teardowns →
               </FramerBanner>
           </Link>
 

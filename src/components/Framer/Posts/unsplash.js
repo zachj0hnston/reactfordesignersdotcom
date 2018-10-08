@@ -18,47 +18,51 @@ export default class PageUnsplash extends Component {
 
 
 const content = [
-  {text: "This is an introo."},
-  {title: "Imports", lines: "1-2", text: "Now that we've imported. We can start by importing."},
-  {title: "Other", lines: "4-9", text: "Cool. Now that we've imported. We can start by importing."},
-  {title: "Props", lines: "11-16", text: "PENDING. Should have a nice explanation about props..."},
-  {title: "Export class", lines: "18-18", text: "PENDING. Shoul have a nice explanation about the class..."},
-  {title: "DefaultProps", lines: "19-23", text: "PENDING. Shoul have a nice explanation about the DefaultProps..."},
-  {title: "propertyControls", lines: "25-32", text: "PENDING. Shoul have a nice explanation about propertyControls..."},
-  {title: "state", lines: "34-36", text: "PENDING. Shoul have a nice explanation about state..."},
+  {text: "This component by Unsplash and Floris Vorloop is a great example of how to reference an very simple API in React. We'll be using `fetch()` to grab an image from source.unsplash.com. Start with the [Props](/framer/translate) component if this is your first time here."},
+  
+  {title: "Imports", lines: "1-2", text: "These two lines of import are standard for all Framer components. The only thing we added is an import for `Frame` on line 2. You can import all sorts of helpful component from the Framer library like `<Stacks>` and `<Text>` but we don't need those for this component."},
+  
+  // {title: "Typescript", lines: "4-9", text: "Typescript is a flavor of Javascript that allows us to strictly define what value a variable can store. Typescript is great for preventing bugs caused a variable being or prop being the wrong data type. This component has a width and height prop that should only ever be a `number` and a search prop that should be a `string`. Then on line `11` we tack `<Props>` to the connect these Typescript definitions to our component.  \n\n If you're just getting started with React or if you like living life on the edge, feel free to ignore Typescript for now."},
+
+  {title: "Create the class", lines: "6", text: "We create a new class that extends the core `React.Component` class. We export this new class with the name \"Unsplash\" and it will automatically show up in the Framer component panel as Unsplash."},
+
+  {title: "Default props", lines: "8-10", text: "Properties are how we customize React components. Even the prop's value is likely to be changed, it's nice to give your props a default value. `Size: \"M\"` will default the size property to M (medium)."},
+
+  {title: "Property controls", lines: "13-24", text: "Framer allows us to put custom controls in the right menu of their interface. For this component, we want the user to be able to customize the search string and the size of the image so we create two property controllers. You can learn more about Framer's property controllers [here](https://store.framer.com/package/@framer/benjamin.properties)."},
+
+  {title: "Size controller", lines: "21-22", text: "The enum control type gives users a dropdown to select values. Users will see the optionTitles of `S, M, L, XL` but the true value will be `0, 1, 2, 3` so if M is selected, 1 will be the value of `this.props.size`. We will use this value later as a multiplier in a math equation."},
+
+  {title: "State", lines: "26-28", text: "States are like props except that they can't be edited from the outside. Usually states are used to store (you guessed it) the state of a component. You can have a state"},
+
+  {title: "", lines: "99", text: ""},
+
+  {title: "A note about the lack of Typescript", lines: "4", text: "Typescript is a flavor of Javascript that allows us to strictly define what value a variable can store. Typescript is great for preventing bugs caused a variable or prop being the wrong data type. To keep this guide short, I removed the Typescript bits but you can read about Typescript [here](https://www.typescriptlang.org/docs/handbook/jsx.html) and find the original, Typescript version of this component in the Framer store."},
+
 ];
 
 
 const code = `import * as React from "react";
 import { Frame, PropertyControls, ControlType, Animatable } from "framer";
 
-enum Sizes {
-  S,
-  M,
-  L,
-  XL
-}
+// A note about the lack of Typescript
 
-interface Props {
-  width: number;
-  height: number;
-  search: string;
-  size: string;
-}
+export class Unsplash extends React.Component {
 
-export class Unsplash extends React.Component<Props> {
   static defaultProps = {
-    url: null,
     search: "",
     size: "M"
   };
 
-  static propertyControls: PropertyControls<Props> = {
-    search: { type: ControlType.String, title: "Search" },
+  static propertyControls = {
+    search: { 
+      type: ControlType.String, 
+      title: "Search" 
+    },
     size: {
       type: ControlType.Enum,
       title: "Size",
-      options: ["S", "M", "L", "XL"]
+      options: ["0", "1", "2", "3"],
+      optionTitles: ["S", "M", "L", "XL"]
     }
   };
 
@@ -70,15 +74,16 @@ export class Unsplash extends React.Component<Props> {
     this.setImage(this.props);
   }
 
-  componentWillReceiveProps(props: Props) {
+  componentWillReceiveProps(props) {
     if (props.search !== this.props.search) this.setImage(props);
     if (props.size !== this.props.size) this.setImage(props);
   }
 
-  async setImage({ size, search }: Props) {
-    var currentSize = 400 + Sizes[size] * 400;
+  async setImage({ size, search }) {
+    var currentSize = 400 + Number(size) * 400;
     const baseUrl = "https://source.unsplash.com";
-    const route = search === "" ? "/random" : '/featured';
+    const route = search === "" ? "/random" : \`/featured\`;
+    const url = \`\${baseUrl}\${route}/\${currentSize}x\${currentSize}?\${search}\`;
     const response = await fetch(url);
     this.setState({ url: response.url });
   }
@@ -92,6 +97,7 @@ export class Unsplash extends React.Component<Props> {
           style={{
             width: width,
             height: height,
+            backgroundImage: \`url(\${this.state.url})\`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             display: "flex",
