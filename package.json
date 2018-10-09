@@ -5,6 +5,9 @@
   "dependencies": {
     "color": "^3.0.0",
     "express": "4.16.3",
+    "json-loader": "0.5.7",
+    "lodash": "4.17.11",
+    "markdown-it": "8.4.2",
     "netlify": "1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -13,6 +16,7 @@
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
     "react-scripts": "1.1.4",
+    "react-syntax-highlighter": "8.0.1",
     "styled-components": "^3.3.3"
   },
   "scripts": {

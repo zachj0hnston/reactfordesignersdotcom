@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Outer, Inner } from './style'
 
-class CardCarousel extends Component {
+export default class CardCarousel extends Component {
   render() {
     return (
       <Outer>
@@ -12,5 +12,3 @@ class CardCarousel extends Component {
     );
   }
 }
-
-export default CardCarousel;

@@ -1,6 +1,6 @@
 export default {
   bg: {
-    default: "#F4F4F4",
+    default: "#f6f6f8",
     light: "rgba(0,0,0,0.05)"
   },
   unit: {
