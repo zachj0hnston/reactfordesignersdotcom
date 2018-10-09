@@ -152,7 +152,7 @@ export default class Template extends Component {
 
   scrollToCode = (line) => {
 
-    const OFFSET = line * 21 - 100; // Currently hard coded to 21px as that's hight of each line
+    const OFFSET = line * 21 - 200; // Currently hard coded to 21px as that's hight of each line
 
     this.codeContainerRef.scroll({
       top: OFFSET,
@@ -194,11 +194,15 @@ export default class Template extends Component {
     const STORY_FOOTER = () => {
       if (!this.props.home) {
         return (
-          <FramerPreview
-            url={FRAMER_URL}
-            artworkURL={FRAMER_ARTWORK_URL}
-            title={this.props.title}
-          />
+          <div>
+            <FramerPreview
+              url={FRAMER_URL}
+              artworkURL={FRAMER_ARTWORK_URL}
+              title={this.props.title}
+            />
+            <h3>p.s.</h3>
+            <p>I plan to publish more of these guides in the future. I don't have a fancy mailing list but you can <a href="https://twitter.com/zach__johnston">follow me on Twitter</a> for updates. </p>
+          </div>
         )
       }
     };

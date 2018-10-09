@@ -16,13 +16,14 @@ export default class Code extends Component {
       return {
         style: {
           display: "block",
-          background: "rgba(255,255,255,0.1)",
+          background: "#29292D",
         }
       };
     } else {
       if (this.props.codeLines.flat().includes(lineNumber)) {
         return {
           style: {
+            background: "#18171C",
             cursor: "pointer",
             display: "block",
           }
@@ -30,6 +31,7 @@ export default class Code extends Component {
       } else {
         return {
           style: {
+            background: "#18171C",
             display: "block",
           }
         };

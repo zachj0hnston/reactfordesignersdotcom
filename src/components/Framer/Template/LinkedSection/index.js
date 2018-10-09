@@ -65,9 +65,9 @@ export default class LinkedSection extends Component {
 
   render() {
 
-    const {title, children} = this.props;
+    const {title, lines, children} = this.props;
 
-    const LINES = this.stringToArray(this.props.lines);
+    const LINES = this.stringToArray(lines);
 
     let titleJSX;
     if (title) {
@@ -82,7 +82,7 @@ export default class LinkedSection extends Component {
     
     return (
       <SectionWrapper 
-        style={LINKED_SECTION_STYLE(this.isActive())}
+        style={LINKED_SECTION_STYLE(lines, this.isActive())}
         onClick={this.handleSectionClick}
         innerRef={(element) => this.sectionRef = element}
       >
@@ -94,8 +94,10 @@ export default class LinkedSection extends Component {
   }
 }
 
-function LINKED_SECTION_STYLE(isActive) {
+function LINKED_SECTION_STYLE(isLinked, isActive) {
   return {
-    background: isActive ? "rgba(0,0,0,0.08)" : "transparent",
+    background: isActive ? "white" : "transparent",
+    boxShadow: isActive ? "0px 0px 0px 1px rgba(0, 0, 0, 0.05)" : "none",
+    cursor: isLinked ? "pointer" : "default",
   };
 }
