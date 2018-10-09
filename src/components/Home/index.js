@@ -123,7 +123,7 @@ class Home extends Component {
               Pro tip: Install <a href="https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc">Octotree</a> for Chrome to navigate Github projects.</p>
           </TextBlock>
 
-          <Link to="/framer">
+          <Link to="/framer/unsplash">
               <FramerBanner>
                 <NewBadge>NEW</NewBadge>
                 Framer X component teardowns →

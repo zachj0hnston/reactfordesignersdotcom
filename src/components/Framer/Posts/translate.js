@@ -18,9 +18,7 @@ export default class PageTranslate extends Component {
 
 
 const content = [
-  {text: "This is an introo."},
-  {title: "Imports", lines: "1-2", text: "Now that we've imported. We can start by importing."},
-  {title: "Other", lines: "3-9", text: "Cool. Now that we've imported. We can start by importing."},
+  {text: "Coming soon."},
 ];
 
 
