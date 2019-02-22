@@ -238,7 +238,6 @@ class Home extends Component {
               Go join a <a href="https://spectrum.chat/react">React community</a>,
               build a <a href="https://framer.com/announcement/">Framer X</a> prototype,
               or maybe redesign your portfolio.</p>
-            <p>See, not intimidating at all.</p>
           </TextBlock>
 
           <Footer>
