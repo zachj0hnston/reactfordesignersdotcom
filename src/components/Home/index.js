@@ -72,7 +72,7 @@ class Home extends Component {
                     the course is a bit dated and they teach you some older
                     javascript syntax."
               cta="Start course"
-              url="https://teamtreehouse.com/library/react-basics"
+              url="https://treehouse.7eer.net/yVNjB"
             />
             <ResourceCard
               id="codecademy"
